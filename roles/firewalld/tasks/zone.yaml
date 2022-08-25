@@ -1,0 +1,27 @@
+---
+- name: Check if zone exists
+  shell:
+    cmd: "firewall-cmd --info-zone {{ zone.name }}"
+  register: zone_info
+  changed_when: false
+
+- name: Create zone if not exists
+  shell:
+    cmd: "firewall-cmd --permanent --new-zone {{ zone.name }}"
+  when: zone_info.rc != 0
+  notify:
+    - Reload firewalld
+
+- name: Allow ports on zone
+  include_tasks: port.yaml
+  with_items: "{{ zone.ports }}"
+  loop_control:
+    loop_var: port
+  when: zone.ports is defined
+
+- name: Add interfaces to zone
+  include_tasks: interface.yaml
+  with_items: "{{ zone.interfaces }}"
+  loop_control:
+    loop_var: interface
+  when: zone.interfaces is defined

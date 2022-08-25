@@ -1,0 +1,14 @@
+---
+- name: "Check if interface {{ port }} is added to zone {{ zone.name }}"
+  shell:
+    cmd: "firewall-cmd --permanent --zone {{ zone.name }} --query-interface {{ interface }}"
+  register: interface_added
+  changed_when: false
+  failed_when: false
+
+- name: "Add {{ interface }} to zone {{ zone.name }}"
+  shell:
+    cmd: "firewall-cmd --permanent --zone {{ zone.name }} --add-interface {{ interface }}"
+  when: port_allowed.rc != 0
+  notify:
+    - Reload firewalld

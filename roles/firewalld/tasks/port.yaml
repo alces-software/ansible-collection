@@ -1,0 +1,14 @@
+---
+- name: "Check if port {{ port }} allowed on zone {{ zone.name }}"
+  shell:
+    cmd: "firewall-cmd --permanent --zone {{ zone.name }} --query-port {{ port }}"
+  register: port_allowed
+  changed_when: false
+  failed_when: false
+
+- name: "Allow port {{ port }} on zone {{ zone.name }}"
+  shell:
+    cmd: "firewall-cmd --permanent --zone {{ zone.name }} --add-port {{ port }}"
+  when: port_allowed.rc != 0
+  notify:
+    - Reload firewalld
