@@ -1,0 +1,5 @@
+---
+- name: Define network interface {{ connection.name }}
+  template:
+    src: ifcfg-int.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ connection.name }}"

@@ -1,0 +1,15 @@
+namespace: alces
+name: hpc
+description: A collection of roles and playbooks for deploying and managing HPC.
+version: 0.0.1
+tags: ["hpc"]
+
+readme: README.md
+authors:
+- Gary Sangwell <gary.sangwell@alces-software.com>
+
+license:
+- GPL-3.0-or-later
+
+dependencies: {}
+

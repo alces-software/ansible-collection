@@ -1,0 +1,5 @@
+network_connections:
+  - name: eth0
+    type: ethernet
+    ipv4:
+      dhcp: yes

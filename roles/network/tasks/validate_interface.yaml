@@ -1,0 +1,10 @@
+---
+- name: "Check {{ device }} exists"
+  stat:
+    path: "/sys/class/net/{{ device }}"
+  register: device_path
+
+- name: "Fail if {{ device }} does not exist"
+  fail:
+    msg: "Device {{ device }} does not appear to exist."
+  when: not device_path.stat.exists

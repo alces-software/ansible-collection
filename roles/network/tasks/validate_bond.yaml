@@ -1,0 +1,16 @@
+---
+- name: Fail if no interfaces have been defined
+  fail:
+    msg: "Must define interfaces to use for network bond."
+  when: (connection.interfaces is not defined) or (connection.interfaces | length <= 0)
+
+- name: Fail if invalid mode defined
+  fail:
+    msg: "Invalid bonding mode defined."
+  when: connection.mode | default(1) is not in [0, 1, 2, 3, 4, 5, 6]
+
+- name: Validate network interface
+  include_tasks: validate_interface.yaml
+  with_items: "{{ connection.interfaces }}"
+  loop_control:
+    loop_var: device

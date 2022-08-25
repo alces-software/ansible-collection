@@ -1,0 +1,5 @@
+---
+- name: Validate network interface
+  include_tasks: validate_interface.yaml
+  vars:
+    device: "{{ connection.name }}"

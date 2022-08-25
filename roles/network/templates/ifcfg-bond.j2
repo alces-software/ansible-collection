@@ -1,0 +1,26 @@
+DEVICE={{ connection.name }}
+TYPE=Bond
+BONDING_MASTER=yes
+BONDING_OPTS="mode={{ connection.mode | default(1) }} {{ connection.opts | default('') }}"
+{% if connection.bridge is defined %}
+BRIDGE={{ connection.bridge }}
+BOOTPROTO=none
+{% else %}
+{% if connection.ipv4.dhcp is defined %}
+BOOTPROTO=dhcp
+{% else %}
+BOOTPROTO=none
+{% if connection.ipv4.address is defined %}
+IPADDR={{ connection.ipv4.address }}
+NETMASK={{ connection.ipv4.netmask }}
+{% endif %}
+{% if connection.ipv4.gateway is defined %}
+GATEWAY={{ connection.ipv4.gateway }}
+{% endif %}
+{% if connection.ipv4.dns is defined %}
+DNS1={{ connection.ipv4.dns }}
+{% endif %}
+{% endif %}
+{% endif %}
+ONBOOT=yes
+NM_CONTROLLED=no

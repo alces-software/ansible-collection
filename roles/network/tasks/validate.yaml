@@ -1,0 +1,13 @@
+---
+- name: "Fail if connection type is not 'ethernet', 'bridge', 'bond' or 'vlan'"
+  fail:
+    msg: "Connection type must be either 'ethernet', 'bridge', 'bond' or 'vlan'"
+  when: connection.type not in ["ethernet", "bridge", "bond", "vlan"]
+
+- name: "Validate {{ connection.type }}"
+  include_tasks: "validate_{{ connection.type}}.yaml"
+
+- name: Fail if using a static ip without defining a netmask.
+  fail:
+    msg: "Must define ipv4.netmask when defining ipv4.address."
+  when: connection.ipv4.address is defined and connection.ipv4.netmask is not defined

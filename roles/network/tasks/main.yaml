@@ -1,0 +1,16 @@
+---
+- name: Validate network connection
+  include_tasks: "validate.yaml"
+  with_items: "{{ network_connections }}"
+  loop_control:
+    loop_var: connection
+
+- name: RHEL8 tasks
+  import_tasks: rhel8.yaml
+  when: ansible_facts['distribution_major_version'] is version(8, operator='eq')
+
+- name: Setup network connection
+  include_tasks: "setup_{{ connection.type}}.yaml"
+  with_items: "{{ network_connections }}"
+  loop_control:
+    loop_var: connection

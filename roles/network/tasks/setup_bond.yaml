@@ -1,0 +1,13 @@
+---
+- name: Define network bond {{ connection.name }}
+  template:
+    src: ifcfg-bond.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ connection.name }}"
+
+- name: Define network interface {{ device }}
+  template:
+    src: ifcfg-bond-int.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ device }}"
+  with_items: "{{ connection.interfaces }}"
+  loop_control:
+    loop_var: device

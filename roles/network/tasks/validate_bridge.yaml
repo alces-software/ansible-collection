@@ -1,0 +1,5 @@
+---
+- name: "Fail when bridge is defined."
+  fail:
+    msg: "Cannot attach a bridge network to another bridge."
+  when: connection.bridge is defined
