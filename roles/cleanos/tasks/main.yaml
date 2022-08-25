@@ -1,0 +1,19 @@
+---
+- name: Populate service facts
+  service_facts:
+
+- name: Disable selinux
+  import_tasks: disable_selinux.yaml
+  when: cleanos.disable_selinux |bool
+
+- name: Remove NetworkManager
+  import_tasks: remove_nm.yaml
+  when: cleanos.remove_nm |bool
+
+- name: Install typical packages
+  import_tasks: install_packages.yaml
+  when: cleanos.install_packages |bool
+
+- name: Install typical services
+  import_tasks: install_services.yaml
+  when: cleanos.install_services |bool

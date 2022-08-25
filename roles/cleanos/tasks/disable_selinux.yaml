@@ -1,0 +1,17 @@
+---
+- name: Set selinux configuration to disabled
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=disabled'
+
+- name: Check current selinux mode
+  shell:
+    cmd: "getenforce"
+  register: checkenforce
+  changed_when: false
+
+- name: Set permissive selinux
+  shell:
+    cmd: "setenforce 0"
+  when: checkenforce.stdout not in  ["Disabled", "Permissive"]

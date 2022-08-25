@@ -1,0 +1,13 @@
+cleanos:
+  disable_selinux: yes
+  remove_nm: yes
+  install_packages: yes
+  install_services: yes
+  packages:
+    - vim
+    - net-tools
+    - git
+    - yum
+  services:
+    - name: firewalld
+      package: firewalld
