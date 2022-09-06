@@ -1,0 +1,43 @@
+---
+- name: debug print name
+  debug:
+    msg: "{{ user.name }}"
+
+
+- name: create group
+  group:
+    name: "{{ user.name }}"
+    gid: "{{ user.gid }}"
+    state: present
+
+
+- name: create user
+  user:
+    name: "{{ user.name }}"
+    home: "{{ user.home }}"
+    uid: "{{ user.uid }}"
+    group: "{{ user.name }}"
+    shell: "{{ user.shell }}" 
+
+
+- name: add public key
+  authorized_key:
+    user: "{{ user.name}}"
+    state: present
+    manage_dir: yes
+    key: "{{ user.pubkey }}"
+  
+  when: user.pubkey is defined
+
+#- name: key check
+#  debug:
+#    msg: "pub key is {{ user.pubkey }}"
+  
+- name: add to sudoers 
+  lineinfile:
+    path: /etc/sudoers.d/"{{ user.name }}"
+    line: '"{{ user.name }}" ALL=(ALL) NOPASSWD: ALL'
+    state: present
+    mode: 0440
+    create: yes
+    validate: 'visudo -cf %s'
