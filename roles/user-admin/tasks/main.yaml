@@ -1,8 +1,4 @@
 ---
-- name: debug print name
-  debug:
-    msg: "{{ user.name }}"
-
 
 - name: create group
   group:
@@ -16,7 +12,7 @@
     name: "{{ user.name }}"
     home: "{{ user.home }}"
     uid: "{{ user.uid }}"
-    group: "{{ user.name }}"
+    groups: "{{ user.name }}" #Add additional groups here. Format: (group1,group2,group3)
     shell: "{{ user.shell }}" 
 
 
@@ -35,9 +31,9 @@
   
 - name: add to sudoers 
   lineinfile:
-    path: /etc/sudoers.d/"{{ user.name }}"
+    path: '/etc/sudoers.d/"{{ user.name }}"'
     line: '"{{ user.name }}" ALL=(ALL) NOPASSWD: ALL'
     state: present
     mode: 0440
     create: yes
-    validate: 'visudo -cf %s'
+    validate: 'visudo -c'
