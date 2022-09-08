@@ -4,4 +4,4 @@ user:
   uid: 64646
   gid: 64646
   home: /home/admin
-  pubkey: "{{ lookup('file', '/home/centos/ansible-collection/roles/user-admin/defaults/id_rsa.pub') }}" 
+  pubkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" 
