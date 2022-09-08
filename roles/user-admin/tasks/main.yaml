@@ -15,7 +15,6 @@
     groups: "{{ user.name }}" #Add additional groups here. Format: (group1,group2,group3)
     shell: "{{ user.shell }}" 
 
-
 - name: add public key
   authorized_key:
     user: "{{ user.name}}"
@@ -36,4 +35,4 @@
     state: present
     mode: 0440
     create: yes
-    validate: 'visudo -c'
+    validate: 'visudo -c %s'

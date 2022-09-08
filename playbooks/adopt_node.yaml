@@ -1,0 +1,10 @@
+---
+
+- hosts: localhost
+  tasks:
+    - name: Create users
+      include_role:
+        name: user-admin
+    - name: Zabbix-Agent setup
+      include_role:
+        name: zabbix-agent
