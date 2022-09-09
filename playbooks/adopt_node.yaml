@@ -1,6 +1,6 @@
 ---
 
-- hosts: localhost
+- hosts: nodes
   tasks:
     - name: Create users
       include_role:
