@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: nodes
   tasks:
     - name: Zabbix-Agent setup
       include_role:
