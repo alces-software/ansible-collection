@@ -6,7 +6,7 @@ ansible-core
 ansible-galaxy
 ansible.posix
 
->>You will need to add<<
+>>You will need to add:<<
 Your zabbix server link
 
 The playbook will initially install zabbix and zabbix agent respectively. Currently zabbix v6.2-1, change this if outdated.

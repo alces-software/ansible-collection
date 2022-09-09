@@ -1,12 +1,8 @@
 ---
 
-## replace with gpg sig if desired
-#- name: gpg disable
-#  yum:
-#    disable_gpg_check: yes
-
 - name: install zabbix
   yum:
+    ## replace with gpg sig if desired
     disable_gpg_check: yes      
     name: "{{ link.zabbix }}"
 
@@ -34,7 +30,7 @@
     state: present
   
 
-- name: create zabbix dir
+- name: create zabbix scripts dir
   file:
     path: etc/zabbix/scripts
     state: directory
