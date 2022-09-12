@@ -11,4 +11,4 @@
       include_role:
         name: zabbix-agent
       vars:
-        server: 10.10.0.1
+        server: fcgateway
