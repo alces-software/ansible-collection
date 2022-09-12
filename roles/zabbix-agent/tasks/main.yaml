@@ -32,7 +32,7 @@
 
 - name: create zabbix scripts dir
   file:
-    path: etc/zabbix/scripts
+    path: /etc/zabbix/scripts
     state: directory
     owner: zabbix
     group: zabbix
