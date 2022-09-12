@@ -48,5 +48,12 @@
     regexp: 'Server=127.0.0.1'
     line: "Server={{ server.default }}"
 
+- name: config EnableRemoteCommands
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: '# EnableRemoteCommands=0'
+    line: 'EnableRemoteCommands=1'
+
 - name: start zabbix-agent
   systemd: state=started name=zabbix-agent
