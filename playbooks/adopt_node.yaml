@@ -5,6 +5,10 @@
     - name: Create users
       include_role:
         name: user-admin
+      vars:
+        name: fcops
     - name: Zabbix-Agent setup
       include_role:
         name: zabbix-agent
+      vars:
+        server: 10.10.0.1
