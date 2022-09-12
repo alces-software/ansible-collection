@@ -1,0 +1,6 @@
+---
+- hosts: nodes
+  tasks:
+    - name: Zabbix-Agent setup
+      include_role:
+        name: zabbix-agent

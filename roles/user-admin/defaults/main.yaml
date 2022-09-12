@@ -1,0 +1,7 @@
+user:
+  name: admin
+  shell: /bin/bash
+  uid: 64646
+  gid: 64646
+  home: /home/"{{ name }}"
+  pubkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" 

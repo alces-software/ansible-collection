@@ -1,0 +1,59 @@
+---
+
+- name: install zabbix
+  yum:
+    ## replace with gpg sig if desired
+    disable_gpg_check: yes      
+    name: "{{ link.zabbix }}"
+
+
+- name: install zabbix-agent
+  yum:
+    name: zabbix-agent
+    state: latest
+
+
+- name: enable zabbix-agent service
+  systemd:
+    name: zabbix-agent
+    enabled: yes
+    masked: no
+
+
+- name: create zabbix user and dir
+  user:
+    name: zabbix
+    group: zabbix
+    system: yes
+    home: /etc/zabbix
+    shell: /bin/bash
+    state: present
+  
+
+- name: create zabbix scripts dir
+  file:
+    path: /etc/zabbix/scripts
+    state: directory
+    owner: zabbix
+    group: zabbix
+    mode: 700
+
+- name: config define server
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: 'ServerActive=127.0.0.1'
+    line: "ServerActive={{ server.default }}"
+    state: present
+    regexp: 'Server=127.0.0.1'
+    line: "Server={{ server.default }}"
+
+- name: config EnableRemoteCommands
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: '# EnableRemoteCommands=0'
+    line: 'EnableRemoteCommands=1'
+
+- name: start zabbix-agent
+  systemd: state=started name=zabbix-agent
