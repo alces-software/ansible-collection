@@ -17,6 +17,6 @@ After which it, creates the zabbix user and its default directory in /etc.
 
 It will then, create a directory for your scripts.
 
-Next, the playbook will edit the config, to direct zabbix-agent to your zabbix server.
+Next, the playbook will edit the config, to direct zabbix-agent to your zabbix server, and enable remote commands.
 
 Finally, it will launch the service.
